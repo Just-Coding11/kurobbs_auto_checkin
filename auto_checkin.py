@@ -183,17 +183,17 @@ def main():
             logger.exception(f"账号{index}发生未知异常: {e}")
             all_msg.append(f"账号{index}发生未知异常: {e}")
 
-    try:
-        logger.info("开始发送通知")
-        send_notification(all_msg)
-        logger.info("通知发送成功")
-    except Exception as e:
-        logger.exception(f"通知发送失败: {e}")
+    # try:
+    #     logger.info("开始发送通知")
+    #     send_notification(all_msg)
+    #     logger.info("通知发送成功")
+    # except Exception as e:
+    #     logger.exception(f"通知发送失败: {e}")
 
     print(repr(all_msg))
-    # # 汇总通知
-    # if all_msg:
-    #     send_notification("\n".join(all_msg))
+    # 汇总通知
+    if all_msg:
+        send_notification("\n".join(all_msg))
 
     if has_error:
         sys.exit(1)
