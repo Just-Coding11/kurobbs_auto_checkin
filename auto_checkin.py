@@ -180,7 +180,9 @@ def main():
         except Exception as e:
             logger.exception(f"An unexpected error occurred: {e}")
             sys.exit(1)
-
+            
+    printf(all_msg)
+    
     # 汇总通知
     if all_msg:
         send_notification("\n".join(all_msg))
