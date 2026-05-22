@@ -176,12 +176,14 @@ def main():
         except KurobbsClientException as e:
             logger.error(f"账号{index}签到失败: {str(e)}", exc_info=False)
             all_msg.append(f"账号{index}签到失败: {str(e)}")
-            sys.exit(1)
+            continue
+            # sys.exit(1)
         except Exception as e:
             logger.exception(f"An unexpected error occurred: {e}")
-            sys.exit(1)
+            continue
+            # sys.exit(1)
             
-    printf(all_msg)
+    print(all_msg)
     
     # 汇总通知
     if all_msg:
