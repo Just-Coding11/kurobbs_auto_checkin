@@ -166,6 +166,7 @@ def main():
     debug = os.getenv("DEBUG", False)
 
     all_msg = []
+    has_error = false
     
     for index, token in enumerate(tokens, start=1):
         try:
@@ -174,20 +175,21 @@ def main():
             if kurobbs.msg:
                 all_msg.append(f"账号{index}：{kurobbs.msg}")
         except KurobbsClientException as e:
+            has_error = true
             logger.error(f"账号{index}签到失败: {str(e)}", exc_info=False)
             all_msg.append(f"账号{index}签到失败: {str(e)}")
-            continue
-            # sys.exit(1)
         except Exception as e:
-            logger.exception(f"An unexpected error occurred: {e}")
-            continue
-            # sys.exit(1)
+            has_error = true
+            logger.exception(f"账号{index}发生未知异常: {e}")
+            all_msg.append(f"账号{index}发生未知异常: {e}")
             
-    print(all_msg)
     
     # 汇总通知
     if all_msg:
         send_notification("\n".join(all_msg))
 
+    if has_error:
+        sys.exit(1)
+        
 if __name__ == "__main__":
     main()
